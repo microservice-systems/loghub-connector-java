@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public final class LogHub {
+public final class Config {
     public static final String CENTRAL = createCentral();
     public static final String ORGANIZATION = createOrganization();
 
@@ -58,7 +58,7 @@ public final class LogHub {
     }
 
     private static byte[] getArray(String name) {
-        InputStream in = LogHub.class.getResourceAsStream(name);
+        InputStream in = Config.class.getResourceAsStream(name);
         if (in != null) {
             try (InputStream in1 = in) {
                 byte[] data = new byte[in1.available()];
@@ -66,7 +66,7 @@ public final class LogHub {
                 if (read == data.length) {
                     return data;
                 } else {
-                    throw new RuntimeException(String.format("Read %d bytes from resource '%s:%s' of size %d", read, LogHub.class.getCanonicalName(), name, data.length));
+                    throw new RuntimeException(String.format("Read %d bytes from resource '%s:%s' of size %d", read, Config.class.getCanonicalName(), name, data.length));
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
