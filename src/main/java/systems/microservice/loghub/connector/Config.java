@@ -43,21 +43,21 @@ public final class Config {
                 }
             }
         }
-        return c;
+        return Validation.domainNullable("CENTRAL", c);
     }
 
     private static String createOrganization() {
-        String c = System.getenv("LOGHUB_ORGANIZATION");
-        if (c == null) {
-            c = System.getProperty("loghub.organization");
-            if (c == null) {
-                c = getString("/META-INF/loghub/ORGANIZATION");
-                if (c == null) {
-                    c = Defaults.organization;
+        String o = System.getenv("LOGHUB_ORGANIZATION");
+        if (o == null) {
+            o = System.getProperty("loghub.organization");
+            if (o == null) {
+                o = getString("/META-INF/loghub/ORGANIZATION");
+                if (o == null) {
+                    o = Defaults.organization;
                 }
             }
         }
-        return c;
+        return Validation.nameNullable("ORGANIZATION", o);
     }
 
     private static byte[] getArray(String name) {
