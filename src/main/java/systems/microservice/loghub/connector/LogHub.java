@@ -17,9 +17,56 @@
 
 package systems.microservice.loghub.connector;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
 public final class LogHub {
+    public static final String CENTRAL = createCentral();
+
+    private static String createCentral() {
+        String c = System.getenv("LOGHUB_CENTRAL");
+        if (c == null) {
+            c = System.getProperty("loghub.central");
+            if (c == null) {
+                c = getString("/META-INF/loghub/CENTRAL");
+                if (c == null) {
+                    c = LogHubDefaults.central;
+                }
+            }
+        }
+        return c;
+    }
+
+    private static byte[] getArray(String name) {
+        InputStream in = LogHub.class.getResourceAsStream(name);
+        if (in != null) {
+            try (InputStream in1 = in) {
+                byte[] data = new byte[in1.available()];
+                int read = in1.read(data);
+                if (read == data.length) {
+                    return data;
+                } else {
+                    throw new RuntimeException(String.format("Read %d bytes from resource '%s:%s' of size %d", read, LogHub.class.getCanonicalName(), name, data.length));
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            return null;
+        }
+    }
+
+    private static String getString(String name) {
+        byte[] a = getArray(name);
+        if (a != null) {
+            return new String(a, StandardCharsets.UTF_8);
+        } else {
+            return null;
+        }
+    }
 }
