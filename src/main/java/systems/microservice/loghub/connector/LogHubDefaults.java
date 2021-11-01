@@ -23,4 +23,5 @@ package systems.microservice.loghub.connector;
  */
 public final class LogHubDefaults {
     public static String central = "loghub.net";
+    public static String organization = null;
 }

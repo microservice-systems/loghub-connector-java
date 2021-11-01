@@ -27,6 +27,7 @@ import java.nio.charset.StandardCharsets;
  */
 public final class LogHub {
     public static final String CENTRAL = createCentral();
+    public static final String ORGANIZATION = createOrganization();
 
     private static String createCentral() {
         String c = System.getenv("LOGHUB_CENTRAL");
@@ -36,6 +37,20 @@ public final class LogHub {
                 c = getString("/META-INF/loghub/CENTRAL");
                 if (c == null) {
                     c = LogHubDefaults.central;
+                }
+            }
+        }
+        return c;
+    }
+
+    private static String createOrganization() {
+        String c = System.getenv("LOGHUB_ORGANIZATION");
+        if (c == null) {
+            c = System.getProperty("loghub.organization");
+            if (c == null) {
+                c = getString("/META-INF/loghub/ORGANIZATION");
+                if (c == null) {
+                    c = LogHubDefaults.organization;
                 }
             }
         }
