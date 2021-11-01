@@ -36,7 +36,7 @@ public final class LogHub {
             if (c == null) {
                 c = getString("/META-INF/loghub/CENTRAL");
                 if (c == null) {
-                    c = LogHubDefaults.central;
+                    c = Defaults.central;
                 }
             }
         }
@@ -50,7 +50,7 @@ public final class LogHub {
             if (c == null) {
                 c = getString("/META-INF/loghub/ORGANIZATION");
                 if (c == null) {
-                    c = LogHubDefaults.organization;
+                    c = Defaults.organization;
                 }
             }
         }
