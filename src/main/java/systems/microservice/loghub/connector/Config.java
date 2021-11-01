@@ -29,6 +29,9 @@ public final class Config {
     public static final String CENTRAL = createCentral();
     public static final String ORGANIZATION = createOrganization();
 
+    private Config() {
+    }
+
     private static String createCentral() {
         String c = System.getenv("LOGHUB_CENTRAL");
         if (c == null) {
