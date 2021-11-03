@@ -17,6 +17,8 @@
 
 package systems.microservice.loghub.connector;
 
+import systems.microservice.loghub.facade.Validator;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -43,7 +45,7 @@ public final class Config {
                 }
             }
         }
-        return Validation.domainNullable("CENTRAL", c);
+        return Validator.domainNullable("CENTRAL", c);
     }
 
     private static String createOrganization() {
@@ -57,7 +59,7 @@ public final class Config {
                 }
             }
         }
-        return Validation.nameNullable("ORGANIZATION", o);
+        return Validator.nameNullable("ORGANIZATION", o);
     }
 
     private static byte[] getArray(String name) {
