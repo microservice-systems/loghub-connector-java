@@ -31,6 +31,7 @@ public final class Config {
     public static final String CENTRAL = createCentral();
     public static final String ORGANIZATION = createOrganization();
     public static final String ENVIRONMENT = createEnvironment();
+    public static final String APPLICATION = createApplication();
 
     private Config() {
     }
@@ -75,6 +76,20 @@ public final class Config {
             }
         }
         return Validator.nameNullable("ENVIRONMENT", e);
+    }
+
+    private static String createApplication() {
+        String a = System.getenv("LOGHUB_APPLICATION");
+        if (a == null) {
+            a = System.getProperty("loghub.application");
+            if (a == null) {
+                a = getString("/META-INF/loghub/APPLICATION");
+                if (a == null) {
+                    a = ConfigDefaults.application;
+                }
+            }
+        }
+        return Validator.nameNullable("APPLICATION", a);
     }
 
     private static byte[] getArray(String name) {
