@@ -21,11 +21,11 @@ package systems.microservice.loghub.connector;
  * @author Dmitry Kotlyarov
  * @since 1.0
  */
-public final class Defaults {
+public final class ConfigDefaults {
     public static String central = "loghub.net";
     public static String organization = null;
     public static String environment = null;
 
-    private Defaults() {
+    private ConfigDefaults() {
     }
 }

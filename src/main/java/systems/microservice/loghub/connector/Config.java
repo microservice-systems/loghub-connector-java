@@ -30,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 public final class Config {
     public static final String CENTRAL = createCentral();
     public static final String ORGANIZATION = createOrganization();
+    public static final String ENVIRONMENT = createEnvironment();
 
     private Config() {
     }
@@ -41,7 +42,7 @@ public final class Config {
             if (c == null) {
                 c = getString("/META-INF/loghub/CENTRAL");
                 if (c == null) {
-                    c = Defaults.central;
+                    c = ConfigDefaults.central;
                 }
             }
         }
@@ -55,11 +56,25 @@ public final class Config {
             if (o == null) {
                 o = getString("/META-INF/loghub/ORGANIZATION");
                 if (o == null) {
-                    o = Defaults.organization;
+                    o = ConfigDefaults.organization;
                 }
             }
         }
         return Validator.nameNullable("ORGANIZATION", o);
+    }
+
+    private static String createEnvironment() {
+        String e = System.getenv("LOGHUB_ENVIRONMENT");
+        if (e == null) {
+            e = System.getProperty("loghub.environment");
+            if (e == null) {
+                e = getString("/META-INF/loghub/ENVIRONMENT");
+                if (e == null) {
+                    e = ConfigDefaults.environment;
+                }
+            }
+        }
+        return Validator.nameNullable("ENVIRONMENT", e);
     }
 
     private static byte[] getArray(String name) {
