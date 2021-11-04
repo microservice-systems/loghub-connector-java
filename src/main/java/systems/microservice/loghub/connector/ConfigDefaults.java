@@ -26,6 +26,7 @@ public final class ConfigDefaults {
     public static String organization = null;
     public static String environment = null;
     public static String application = null;
+    public static String version = null;
 
     private ConfigDefaults() {
     }

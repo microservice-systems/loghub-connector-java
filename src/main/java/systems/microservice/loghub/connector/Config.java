@@ -32,6 +32,7 @@ public final class Config {
     public static final String ORGANIZATION = createOrganization();
     public static final String ENVIRONMENT = createEnvironment();
     public static final String APPLICATION = createApplication();
+    public static final String VERSION = createVersion();
 
     private Config() {
     }
@@ -90,6 +91,20 @@ public final class Config {
             }
         }
         return Validator.nameNullable("APPLICATION", a);
+    }
+
+    private static String createVersion() {
+        String v = System.getenv("LOGHUB_VERSION");
+        if (v == null) {
+            v = System.getProperty("loghub.version");
+            if (v == null) {
+                v = getString("/META-INF/loghub/VERSION");
+                if (v == null) {
+                    v = ConfigDefaults.version;
+                }
+            }
+        }
+        return Validator.versionNullable("VERSION", v);
     }
 
     private static byte[] getArray(String name) {
