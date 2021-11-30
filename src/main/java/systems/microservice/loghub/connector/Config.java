@@ -17,7 +17,7 @@
 
 package systems.microservice.loghub.connector;
 
-import systems.microservice.loghub.facade.Validator;
+import systems.microservice.loghub.facade.config.Validator;
 
 import java.io.IOException;
 import java.io.InputStream;
