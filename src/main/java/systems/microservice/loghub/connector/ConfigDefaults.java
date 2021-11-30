@@ -25,8 +25,15 @@ public final class ConfigDefaults {
     public static String central = "loghub.net";
     public static String organization = null;
     public static String environment = null;
+    public static String registry = null;
+    public static String group = null;
     public static String application = null;
     public static String version = null;
+    public static String revision = null;
+    public static String name = null;
+    public static String description = null;
+    public static String repository = null;
+    public static RepositoryType repositoryType = null;
 
     private ConfigDefaults() {
     }

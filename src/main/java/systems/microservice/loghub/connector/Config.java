@@ -31,16 +31,22 @@ public final class Config {
     public static final String CENTRAL = createCentral();
     public static final String ORGANIZATION = createOrganization();
     public static final String ENVIRONMENT = createEnvironment();
+    public static final String REGISTRY = createRegistry();
+    public static final String GROUP = createGroup();
     public static final String APPLICATION = createApplication();
     public static final String VERSION = createVersion();
+    public static final String REVISION = createRevision();
+    public static final String NAME = createName();
+    public static final String DESCRIPTION = createDescription();
+    public static final String REPOSITORY = createRepository();
 
     private Config() {
     }
 
     private static String createCentral() {
-        String c = System.getenv("LOGHUB_CENTRAL");
+        String c = System.getenv("CENTRAL");
         if (c == null) {
-            c = System.getProperty("loghub.central");
+            c = System.getProperty("central");
             if (c == null) {
                 c = getString("/META-INF/loghub/CENTRAL");
                 if (c == null) {
@@ -52,9 +58,9 @@ public final class Config {
     }
 
     private static String createOrganization() {
-        String o = System.getenv("LOGHUB_ORGANIZATION");
+        String o = System.getenv("ORGANIZATION");
         if (o == null) {
-            o = System.getProperty("loghub.organization");
+            o = System.getProperty("organization");
             if (o == null) {
                 o = getString("/META-INF/loghub/ORGANIZATION");
                 if (o == null) {
@@ -66,9 +72,9 @@ public final class Config {
     }
 
     private static String createEnvironment() {
-        String e = System.getenv("LOGHUB_ENVIRONMENT");
+        String e = System.getenv("ENVIRONMENT");
         if (e == null) {
-            e = System.getProperty("loghub.environment");
+            e = System.getProperty("environment");
             if (e == null) {
                 e = getString("/META-INF/loghub/ENVIRONMENT");
                 if (e == null) {
@@ -79,10 +85,38 @@ public final class Config {
         return Validator.nameNullable("ENVIRONMENT", e);
     }
 
+    private static String createRegistry() {
+        String r = System.getenv("REGISTRY");
+        if (r == null) {
+            r = System.getProperty("registry");
+            if (r == null) {
+                r = getString("/META-INF/loghub/REGISTRY");
+                if (r == null) {
+                    r = ConfigDefaults.registry;
+                }
+            }
+        }
+        return r;
+    }
+
+    private static String createGroup() {
+        String g = System.getenv("GROUP");
+        if (g == null) {
+            g = System.getProperty("group");
+            if (g == null) {
+                g = getString("/META-INF/loghub/GROUP");
+                if (g == null) {
+                    g = ConfigDefaults.group;
+                }
+            }
+        }
+        return Validator.nameWithDotsNullable("GROUP", g);
+    }
+
     private static String createApplication() {
-        String a = System.getenv("LOGHUB_APPLICATION");
+        String a = System.getenv("APPLICATION");
         if (a == null) {
-            a = System.getProperty("loghub.application");
+            a = System.getProperty("application");
             if (a == null) {
                 a = getString("/META-INF/loghub/APPLICATION");
                 if (a == null) {
@@ -94,9 +128,9 @@ public final class Config {
     }
 
     private static String createVersion() {
-        String v = System.getenv("LOGHUB_VERSION");
+        String v = System.getenv("VERSION");
         if (v == null) {
-            v = System.getProperty("loghub.version");
+            v = System.getProperty("version");
             if (v == null) {
                 v = getString("/META-INF/loghub/VERSION");
                 if (v == null) {
@@ -105,6 +139,62 @@ public final class Config {
             }
         }
         return Validator.versionNullable("VERSION", v);
+    }
+
+    private static String createRevision() {
+        String r = System.getenv("REVISION");
+        if (r == null) {
+            r = System.getProperty("revision");
+            if (r == null) {
+                r = getString("/META-INF/loghub/REVISION");
+                if (r == null) {
+                    r = ConfigDefaults.revision;
+                }
+            }
+        }
+        return Validator.revisionNullable("REVISION", r);
+    }
+
+    private static String createName() {
+        String n = System.getenv("NAME");
+        if (n == null) {
+            n = System.getProperty("name");
+            if (n == null) {
+                n = getString("/META-INF/loghub/NAME");
+                if (n == null) {
+                    n = ConfigDefaults.name;
+                }
+            }
+        }
+        return n;
+    }
+
+    private static String createDescription() {
+        String d = System.getenv("DESCRIPTION");
+        if (d == null) {
+            d = System.getProperty("description");
+            if (d == null) {
+                d = getString("/META-INF/loghub/DESCRIPTION");
+                if (d == null) {
+                    d = ConfigDefaults.description;
+                }
+            }
+        }
+        return d;
+    }
+
+    private static String createRepository() {
+        String r = System.getenv("REPOSITORY");
+        if (r == null) {
+            r = System.getProperty("repository");
+            if (r == null) {
+                r = getString("/META-INF/loghub/REPOSITORY");
+                if (r == null) {
+                    r = ConfigDefaults.repository;
+                }
+            }
+        }
+        return r;
     }
 
     private static byte[] getArray(String name) {
